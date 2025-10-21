@@ -177,8 +177,8 @@ Response:
 
 ## Credits
 
-- Project author: Kazi Rifat Al Muin
-- Collaborator: Rafi
+- Hardware Design, Functional Logic & Implementation: Kazi Rifat Al Muin
+- Motor Functionality & Website Integration: Arman Rahman Rafi
 - Lab: Embedded Systems & IoT Lab
 
 ---
