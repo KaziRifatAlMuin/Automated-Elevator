@@ -178,16 +178,3 @@ Response:
 - Kazi Rifat Al Muin [Hardware Design, Logic & Implementation]
 - Arman Rahman Rafi [Motor Functionality & Website Integration]
 
----
-
-## License
-
-This project is released under the MIT License. Feel free to reuse, modify, and redistribute with attribution.
-
----
-
-If you want, I can also:
-
-- Generate a compact wiring diagram diagram (text-based or SVG),
-- Create a short web UI that talks to the `/status` and `/control` endpoints, or
-- Turn this README into a repository `README.md` file and suggest a `.gitignore` and `LICENSE` file.
