@@ -14,10 +14,7 @@ An automated two-floor elevator built with an ESP32 microcontroller, ultrasonic 
 
 This project implements a compact, safety-conscious automated elevator tailored for a two-floored small building or demonstration rig. When a person stands in front of the elevator door, the system automatically triggers a ride sequence: the elevator moves to the calling floor, opens the door, allows boarding, and then takes the passenger to the opposite floor. The system includes features for safety (object detection at the door), overload protection (current monitoring), and a simple remote monitoring/control interface via a local web API.
 
-**Key 
-
----
-oals:**
+**Key Goals:**
 
 - Autonomous two-floor operation triggered by presence detection.
 - Door obstacle detection to prevent accidental closing on objects/people.
