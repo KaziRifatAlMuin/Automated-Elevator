@@ -5,8 +5,8 @@
 #include "ACS712.h"
 
 // =================== WIFI CONFIG ===================
-const char* ssid = "Rifat";
-const char* password = "rifat123";
+const char* ssid = ""; // set your Wifi SSID
+const char* password = ""; // set your Wifi password
 
 WebServer server(80);
 
@@ -98,23 +98,23 @@ void setup() {
   LEDstateRG(true, false);
   Serial.println("🚀 System Booted. Initializing WiFi...");
 
-  // --- WiFi Setup ---
-  // WiFi.begin(ssid, password);
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(500);
-  //   Serial.print(".");
-  // }
-  // Serial.println("\n✅ WiFi Connected!");
-  // Serial.print("📡 IP Address: ");
-  // Serial.println(WiFi.localIP());
+  --- WiFi Setup ---
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\n✅ WiFi Connected!");
+  Serial.print("📡 IP Address: ");
+  Serial.println(WiFi.localIP());
 
-  // // --- Web Server Setup ---
-  // server.on("/status", HTTP_GET, handleStatusAPI);
-  // server.on("/status", HTTP_OPTIONS, handleOptions);
-  // server.on("/control", HTTP_GET, handleControlAPI);
-  // server.on("/control", HTTP_OPTIONS, handleOptions);
-  // server.begin();
-  // Serial.println("🌐 Web API Ready!");
+  // --- Web Server Setup ---
+  server.on("/status", HTTP_GET, handleStatusAPI);
+  server.on("/status", HTTP_OPTIONS, handleOptions);
+  server.on("/control", HTTP_GET, handleControlAPI);
+  server.on("/control", HTTP_OPTIONS, handleOptions);
+  server.begin();
+  Serial.println("🌐 Web API Ready!");
 }
 
 // =================== API HEADERS ===================
@@ -251,6 +251,7 @@ void beepBuzzer(int buzzerPin, int duration) {
   digitalWrite(buzzerPin, HIGH);
   delay(duration);
   digitalWrite(buzzerPin, LOW);
+  lastIR = digitalRead(IR_SENSOR);
 }
 
 void blinkLED(int pin, int times, int delayMs) {
@@ -260,6 +261,7 @@ void blinkLED(int pin, int times, int delayMs) {
     delay(delayMs);
     digitalWrite(pin, LOW);
     delay(delayMs);
+    lastIR = digitalRead(IR_SENSOR);
   }
 }
 
@@ -287,12 +289,14 @@ void doorOpen() {
 void safeDoorClose(int buzzerPin, int ledPin) {
   Serial.println("🚧 Checking IR before door close...");
   int irValue = digitalRead(IR_SENSOR);
+  lastIR = digitalRead(IR_SENSOR);
 
   while (irValue == LOW) {
     Serial.println("⚠ IR detected! Obstacle present!");
     digitalWrite(buzzerPin, HIGH);
     blinkAllLED(5, 150);
     irValue = digitalRead(IR_SENSOR);
+    lastIR = digitalRead(IR_SENSOR);
     server.handleClient(); // Handle requests even during door closing
   }
 
@@ -324,6 +328,7 @@ void pullUp() {
       blinkAllLED(5, 150);
       beepBuzzer(BUZZER1, 1000);
       motorSTOP();
+      lastIR = digitalRead(IR_SENSOR);
       return;
     }
     delay(100);
@@ -340,6 +345,7 @@ void stayOnTop() {
   digitalWrite(IN1, HIGH);
   digitalWrite(IN2, LOW);
   analogWrite(ENA, 100);
+  lastIR = digitalRead(IR_SENSOR);
 }
 
 void pullDown() {
@@ -393,6 +399,7 @@ void autodetect(){
     for (int i = 0; i < 70; i++) {
       delay(100);
       server.handleClient();
+      lastIR = digitalRead(IR_SENSOR);
     }
     
     beepBuzzer(BUZZER1, 1000);
@@ -407,6 +414,7 @@ void autodetect(){
     for (int i = 0; i < 40; i++) {
       delay(100);
       server.handleClient();
+      lastIR = digitalRead(IR_SENSOR);
     }
     
     beepBuzzer(BUZZER2, 1000);
@@ -425,6 +433,7 @@ void autodetect(){
     // Wait with server handling
     for (int i = 0; i < 70; i++) {
       delay(100);
+      lastIR = digitalRead(IR_SENSOR);
       server.handleClient();
     }
     
@@ -439,6 +448,7 @@ void autodetect(){
     // Wait with server handling
     for (int i = 0; i < 40; i++) {
       delay(100);
+      lastIR = digitalRead(IR_SENSOR);
       server.handleClient();
     }
     
@@ -482,6 +492,7 @@ void testrun(){
     
   for (int i = 0; i < 70; i++) {
     delay(100);
+    lastIR = digitalRead(IR_SENSOR);
     server.handleClient();
   }
     
@@ -499,6 +510,7 @@ void testrun(){
   // Wait with server handling
   for (int i = 0; i < 70; i++) {
     delay(100);
+    lastIR = digitalRead(IR_SENSOR);
     server.handleClient();
   }
 

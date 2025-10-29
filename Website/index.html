@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .metric-value {
+            color: #333;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        .status-open {
+            color: #27ae60;
+        }
+        
+        .status-closed {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>🏢 Elevator Dashboard</h1>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Current Floor</div>
+                <div class="metric-value" id="currentFloor">1</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">IR Sensor</div>
+                <div class="metric-value" id="irSensor">0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Current (A)</div>
+                <div class="metric-value" id="currentA">0.123</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Distance 1 (cm)</div>
+                <div class="metric-value" id="distance1">15.3</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Distance 2 (cm)</div>
+                <div class="metric-value" id="distance2">12.0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Door Status</div>
+                <div class="metric-value status-closed" id="doorStatus">CLOSED</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data update function
+        function updateDashboard(data) {
+            document.getElementById('currentFloor').textContent = data.currentFloor;
+            document.getElementById('irSensor').textContent = data.irSensor;
+            document.getElementById('currentA').textContent = data.currentA.toFixed(3);
+            document.getElementById('distance1').textContent = data.distance1_cm.toFixed(1);
+            document.getElementById('distance2').textContent = data.distance2_cm.toFixed(1);
+            
+            const doorStatusElement = document.getElementById('doorStatus');
+            doorStatusElement.textContent = data.doorStatus.toUpperCase();
+            doorStatusElement.className = data.doorStatus === 'open' ? 'metric-value status-open' : 'metric-value status-closed';
+        }
+
+        // Initialize with sample data
+        const sampleData = {
+            "currentFloor": 1,
+            "irSensor": 0,
+            "currentA": 0.123,
+            "distance1_cm": 15.3,
+            "distance2_cm": 12.0,
+            "doorStatus": "closed"
+        };
+        
+        updateDashboard(sampleData);
+    </script>
+</body>
+</html>

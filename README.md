@@ -1,6 +1,12 @@
+
+
 # Automated Elevator
 
 An automated two-floor elevator built with an ESP32 microcontroller, ultrasonic sensors, current sensing (ACS712), servo-controlled doors, and a simple web API for remote monitoring and control. Designed and implemented in collaboration with my groupmate, Rafi. I spent a full week designing, building, and debugging both the hardware and firmware.
+> *To View How It Works: [Click Here](https://youtube.com/shorts/9187-hD0k88?si=pop40axS5-ixpj03)*
+<p align="center">
+  <img src="Images/automated_elevator.jpg" alt="Automated Elevator" width="250"/>
+</p>
 
 ---
 
@@ -8,7 +14,10 @@ An automated two-floor elevator built with an ESP32 microcontroller, ultrasonic 
 
 This project implements a compact, safety-conscious automated elevator tailored for a two-floored small building or demonstration rig. When a person stands in front of the elevator door, the system automatically triggers a ride sequence: the elevator moves to the calling floor, opens the door, allows boarding, and then takes the passenger to the opposite floor. The system includes features for safety (object detection at the door), overload protection (current monitoring), and a simple remote monitoring/control interface via a local web API.
 
-Key goals:
+**Key 
+
+---
+oals:**
 
 - Autonomous two-floor operation triggered by presence detection.
 - Door obstacle detection to prevent accidental closing on objects/people.
@@ -178,3 +187,4 @@ Response:
 - Kazi Rifat Al Muin [Hardware Design, Logic & Implementation]
 - Arman Rahman Rafi [Motor Functionality & Website Integration]
 
+---
